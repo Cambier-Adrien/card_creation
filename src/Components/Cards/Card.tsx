@@ -49,10 +49,10 @@ export default function Card({
         {title}
       </h3>
       <div className="flex gap-2">
-        <span className="text-xs  font-['Inter'] bg-slate-900 text-white rounded-full px-4 py-1">
+        <span className="text-xs font-['Inter'] bg-slate-900 text-white rounded-full px-4 py-1">
           ATQ : {atk}
         </span>
-        <span className="text-xs  font-['Inter'] bg-slate-900 text-white rounded-full px-4 py-1">
+        <span className="text-xs font-['Inter'] bg-slate-900 text-white rounded-full px-4 py-1">
           DEF : {def}
         </span>
       </div>

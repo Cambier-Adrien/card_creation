@@ -63,7 +63,7 @@ export default function Main() {
           </h1>
           <div className="flex flex-wrap justify-center gap-4">
             <HeavyButton
-              value="Une carte"
+              value="une carte"
               icon={faPlus}
               onClick={() => toggleIsOpen("createCard")}
               disabled={isOpen["remove"] || isOpen["modify"]!}
@@ -76,7 +76,7 @@ export default function Main() {
             />
             <LightButton
               icon={faRemove}
-              value="Une carte"
+              value="une carte"
               onClick={() => handleCloseCardSelection()}
               disabled={isOpen["createCard"] || isOpen["modify"]!}
             />
