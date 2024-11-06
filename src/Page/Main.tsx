@@ -1,10 +1,10 @@
-import { faPlus, faRemove } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faPlus, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { Card } from "../Components/Cards";
 import { HeavyButton, LightButton } from "../Components/Buttons";
 import { useState, useEffect } from "react";
-import CreateCardModal from "../Modals/CreateCardModal";
+import CustomizeCardModal from "../Modals/CustomizeCardModal";
 import SelectModal from "../Modals/SelectModal";
-import axios from "axios";
+import ModifyModal from "../Modals/ModifyModal";
 
 export default function Main() {
   const [cards, setCards] = useState([]);
@@ -48,6 +48,11 @@ export default function Main() {
     toggleIsOpen("remove");
   };
 
+  const handleModifyCard = () => {
+    toggleIsOpen("modify");
+    toggleIsOpen("modifyCard");
+  };
+
   return (
     <>
       <main className="bg-slate-950 min-h-screen">
@@ -56,17 +61,24 @@ export default function Main() {
             Créez et personnalisés
             <span className="text-indigo-600"> vos cartes</span>
           </h1>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap justify-center gap-4">
             <HeavyButton
               value="Une carte"
               icon={faPlus}
               onClick={() => toggleIsOpen("createCard")}
-              disabled={isOpen["remove"]}
+              disabled={isOpen["remove"] || isOpen["modify"]!}
+            />
+            <HeavyButton
+              icon={faPencil}
+              value="une carte"
+              onClick={() => toggleIsOpen("modify")}
+              disabled={isOpen["createCard"] || isOpen["remove"]!}
             />
             <LightButton
               icon={faRemove}
               value="Une carte"
               onClick={() => handleCloseCardSelection()}
+              disabled={isOpen["createCard"] || isOpen["modify"]!}
             />
           </div>
 
@@ -79,19 +91,31 @@ export default function Main() {
               def={20}
               canSelect={isOpen["remove"]}
               isSelected={selected.includes("2")}
-              onClick={() => toggleCardSelection("2")}
+              onSelect={() => toggleCardSelection("2")}
+              canModify={isOpen["modify"]}
+              onModify={() => handleModifyCard()}
             />
           </div>
         </div>
       </main>
-      <CreateCardModal
+      <CustomizeCardModal
         isOpen={isOpen["createCard"] || false}
         onClose={() => toggleIsOpen("createCard")}
+        startTitle="Créez votre"
+      />
+      <CustomizeCardModal
+        isOpen={isOpen["modifyCard"] || false}
+        onClose={() => toggleIsOpen("modifyCard")}
+        startTitle="Modifiez votre"
       />
       <SelectModal
         isOpen={isOpen["remove"] || false}
         onClose={() => handleCloseCardSelection()}
         nbr={selected.length}
+      />
+      <ModifyModal
+        isOpen={isOpen["modify"] || false}
+        onClose={() => toggleIsOpen("modify")}
       />
     </>
   );

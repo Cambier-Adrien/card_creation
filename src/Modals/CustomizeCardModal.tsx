@@ -3,15 +3,20 @@ import { ModalBackground } from "../Components/Backgrounds";
 import { HeavyButton, LightButton } from "../Components/Buttons";
 import { SlateInput, SlateTextArea, Counter } from "../Components/Inputs";
 import { useState } from "react";
+import { stat } from "fs";
 
 interface CreateCardModalProps {
   onClose: () => void;
   isOpen: boolean;
+  startTitle: string;
+  data?: any;
 }
 
-export default function CreateCardModal({
+export default function CustomizeCardModal({
   onClose,
   isOpen,
+  startTitle,
+  data,
 }: CreateCardModalProps) {
   const body = document.querySelector("body")!;
 
@@ -60,7 +65,7 @@ export default function CreateCardModal({
       <ModalBackground isOpen={isOpen} onClick={handleClose} />
       <div className="w-[30rem] p-8 rounded-xl bg-slate-950 border-2 border-violet-600 shadow-2xl shadow-violet-600/50 z-50 flex flex-col gap-6 items-center max-h-full overflow-y-scroll">
         <h1 className="text-center text-white font-['Inter'] text-4xl font-semibold">
-          Customisez votre
+          {startTitle}
           <span className="text-indigo-600"> carte</span>
         </h1>
         <div className="flex flex-col gap-2 w-full">

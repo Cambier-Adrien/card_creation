@@ -1,5 +1,5 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { SelectButton } from "../Buttons";
+import { SelectButton, ModifyButton } from "../Buttons";
 
 interface CardProps {
   image: string;
@@ -9,7 +9,9 @@ interface CardProps {
   def: number;
   isSelected?: boolean;
   canSelect?: boolean;
-  onClick?: () => void;
+  canModify?: boolean;
+  onSelect?: () => void;
+  onModify?: () => void;
 }
 
 export default function Card({
@@ -20,7 +22,9 @@ export default function Card({
   def,
   isSelected,
   canSelect,
-  onClick,
+  canModify,
+  onSelect,
+  onModify,
 }: CardProps) {
   return (
     <div
@@ -29,10 +33,15 @@ export default function Card({
       {canSelect && (
         <div className="absolute bottom-4">
           <SelectButton
-            onClick={onClick}
+            onClick={onSelect}
             icon={faCheck}
             isSelected={isSelected}
           />
+        </div>
+      )}
+      {canModify && (
+        <div className="absolute bottom-4">
+          <ModifyButton onClick={onModify} />
         </div>
       )}
       <img className="rounded-xl object-cover h-30" src={image} />
