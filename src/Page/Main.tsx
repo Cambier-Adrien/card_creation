@@ -1,13 +1,28 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faRemove } from "@fortawesome/free-solid-svg-icons";
-import Card from "../Components/Card";
-import HeavyButton from "../Components/HeavyButton";
-import LightButton from "../Components/LightButton";
-import { useState } from "react";
+import { Card } from "../Components/Cards";
+import { HeavyButton, LightButton } from "../Components/Buttons";
+import { useState, useEffect } from "react";
 import CreateCardModal from "../Modals/CreateCardModal";
 import SelectModal from "../Modals/SelectModal";
+import axios from "axios";
 
 export default function Main() {
+  const [cards, setCards] = useState([]);
+
+  fetch("http://192.168.1.118:8080/cards", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   const [isOpen, setIsOpen] = useState<{ [key: string]: boolean }>({});
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -63,38 +78,8 @@ export default function Main() {
               atk={18}
               def={20}
               canSelect={isOpen["remove"]}
-              isSelected={selected.includes("1")}
-              onClick={() => toggleCardSelection("1")}
-            />
-            <Card
-              image="https://wallpapercat.com/w/full/4/6/1/1165730-3840x2160-desktop-4k-landscape-background.jpg"
-              title="test"
-              description="lorem ipsum"
-              atk={18}
-              def={20}
-              canSelect={isOpen["remove"]}
               isSelected={selected.includes("2")}
               onClick={() => toggleCardSelection("2")}
-            />
-            <Card
-              image="https://wallpapercat.com/w/full/4/6/1/1165730-3840x2160-desktop-4k-landscape-background.jpg"
-              title="test"
-              description="lorem ipsum"
-              atk={18}
-              def={20}
-              canSelect={isOpen["remove"]}
-              isSelected={selected.includes("3")}
-              onClick={() => toggleCardSelection("3")}
-            />
-            <Card
-              image="https://wallpapercat.com/w/full/4/6/1/1165730-3840x2160-desktop-4k-landscape-background.jpg"
-              title="test"
-              description="lorem ipsum"
-              atk={18}
-              def={20}
-              canSelect={isOpen["remove"]}
-              isSelected={selected.includes("4")}
-              onClick={() => toggleCardSelection("4")}
             />
           </div>
         </div>

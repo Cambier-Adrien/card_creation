@@ -1,10 +1,7 @@
 import ReactDOM from "react-dom";
-import ModalBackground from "../Components/ModalBackground";
-import HeavyButton from "../Components/HeavyButton";
-import LightButton from "../Components/LightButton";
-import SlateInput from "../Components/SlateInput";
-import SlateTextArea from "../Components/SlateTextArea";
-import Counter from "../Components/Counter";
+import { ModalBackground } from "../Components/Backgrounds";
+import { HeavyButton, LightButton } from "../Components/Buttons";
+import { SlateInput, SlateTextArea, Counter } from "../Components/Inputs";
 import { useState } from "react";
 
 interface CreateCardModalProps {
@@ -91,13 +88,23 @@ export default function CreateCardModal({
             <p className="text-white font-['Inter'] text-sm border-b border-slate-700 pb-1">
               Attaque <span className="text-indigo-600">(ATQ)</span>
             </p>
-            <Counter count={atk} add={handleAtkAdd} remove={handleAtkRemove} />
+            <Counter
+              count={atk}
+              add={handleAtkAdd}
+              remove={handleAtkRemove}
+              setCount={setAtk}
+            />
           </div>
           <div className="flex flex-col gap-4 w-full">
             <p className="text-white font-['Inter'] text-sm border-b border-slate-700 pb-1">
               Défense <span className="text-indigo-600">(DEF)</span>
             </p>
-            <Counter count={def} add={handleDefAdd} remove={handleDefRemove} />
+            <Counter
+              count={def}
+              add={handleDefAdd}
+              remove={handleDefRemove}
+              setCount={setDef}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-2 w-full">

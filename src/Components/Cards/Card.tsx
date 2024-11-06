@@ -1,6 +1,5 @@
-import { faCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
-import RawButton from "./RawButton";
-import SelectButton from "./SelectButton";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { SelectButton } from "../Buttons";
 
 interface CardProps {
   image: string;
