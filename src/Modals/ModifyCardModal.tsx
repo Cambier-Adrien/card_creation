@@ -37,7 +37,7 @@ export default function ModifyCardModal({
       setAtk(data.atk);
       setDef(data.def);
       setTitle(data.title);
-      setImageUrl(data.imageUrl);
+      setImageUrl(data.image);
       setDescription(data.description);
       setCardId(data._links?.card?.href?.split("/").pop());
     }

@@ -28,16 +28,16 @@ export default function Card({
   onSelect,
   onModify,
 }: CardProps) {
-  const [isImageValid, setIsImageValid] = useState(true);
+  const [isImageValid, setIsImageValid] = useState(false);
 
   useEffect(() => {
-    if (image) {
+    if (!image) {
+      setIsImageValid(false);
+    } else {
       const img = new Image();
       img.src = image;
       img.onload = () => setIsImageValid(true);
       img.onerror = () => setIsImageValid(false);
-    } else {
-      setIsImageValid(false);
     }
   }, [image]);
 
