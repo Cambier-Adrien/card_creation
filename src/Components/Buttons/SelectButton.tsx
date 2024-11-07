@@ -15,8 +15,10 @@ export default function SelectButton({
     <button
       onClick={onClick}
       className={`${
-        isSelected ? "bg-indigo-600" : "bg-slate-900"
-      } transition-all ease-in-out flex items-center justify-center text-white rounded-full`}
+        isSelected
+          ? "bg-indigo-600 border-indigo-600"
+          : "bg-slate-900 border-slate-800"
+      } border transition-all ease-in-out flex items-center justify-center text-white rounded-full`}
     >
       <FontAwesomeIcon
         icon={icon}

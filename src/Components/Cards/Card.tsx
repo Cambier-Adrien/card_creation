@@ -1,5 +1,7 @@
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faImage } from "@fortawesome/free-solid-svg-icons";
 import { SelectButton, ModifyButton } from "../Buttons";
+import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface CardProps {
   image: string;
@@ -26,12 +28,51 @@ export default function Card({
   onSelect,
   onModify,
 }: CardProps) {
+  const [isImageValid, setIsImageValid] = useState(true);
+
+  useEffect(() => {
+    if (image) {
+      const img = new Image();
+      img.src = image;
+      img.onload = () => setIsImageValid(true);
+      img.onerror = () => setIsImageValid(false);
+    } else {
+      setIsImageValid(false);
+    }
+  }, [image]);
+
   return (
     <div
-      className={`shadow-2xl shadow-transparent transition-all ease-in-out flex flex-col gap-2 p-4 min-h-80 w-56 bg-gradient-to-bl from-violet-200 to-teal-200 rounded-2xl relative`}
+      className={`border-2 border-violet-600 shadow-2xl shadow-violet-600/50 overflow-hidden transition-all ease-in-out flex flex-col p-4 gap-2 min-h-80 w-56 rounded-2xl relative`}
     >
+      {isImageValid ? (
+        <img
+          className="border border-transparent rounded-xl object-cover h-32"
+          src={image}
+        />
+      ) : (
+        <div className="border border-slate-800 rounded-xl object-cover h-32 relative bg-slate-900 flex items-center justify-center">
+          <FontAwesomeIcon
+            className="text-slate-600 h-12 w-12"
+            icon={faImage}
+          />
+        </div>
+      )}
+
+      <h3 className="text-slate-100 font-['Inter'] text-xl font-semibold">
+        {title}
+      </h3>
+      <div className="flex gap-2">
+        <span className="text-xs font-medium font-['Inter'] bg-red-600 shadow-md shadow-red-600/50 text-white rounded-full px-4 py-1">
+          ATQ : {atk}
+        </span>
+        <span className="text-xs font-medium font-['Inter'] bg-amber-600  shadow-md shadow-amber-600/50 text-white rounded-full px-4 py-1">
+          DEF : {def}
+        </span>
+      </div>
+      <p className="text-slate-100 font-['Inter'] text-sm">{description}</p>
       {canSelect && (
-        <div className="absolute bottom-4">
+        <div className="top-0 left-0 absolute h-full w-full bg-black/50 backdrop-blur-[2px] flex items-end justify-center p-4">
           <SelectButton
             onClick={onSelect}
             icon={faCheck}
@@ -40,23 +81,10 @@ export default function Card({
         </div>
       )}
       {canModify && (
-        <div className="absolute bottom-4">
+        <div className="top-0 left-0 absolute h-full w-full bg-black/50 backdrop-blur-[2px] flex items-end justify-center p-4">
           <ModifyButton onClick={onModify} />
         </div>
       )}
-      <img className="rounded-xl object-cover h-30" src={image} />
-      <h3 className="text-slate-900 font-['Inter'] text-xl font-semibold">
-        {title}
-      </h3>
-      <div className="flex gap-2">
-        <span className="text-xs font-['Inter'] bg-slate-900 text-white rounded-full px-4 py-1">
-          ATQ : {atk}
-        </span>
-        <span className="text-xs font-['Inter'] bg-slate-900 text-white rounded-full px-4 py-1">
-          DEF : {def}
-        </span>
-      </div>
-      <p className="text-slate-900 font-['Inter'] text-sm">{description}</p>
     </div>
   );
 }

@@ -7,12 +7,14 @@ interface SelectModalProps {
   nbr: number;
   isOpen: boolean;
   onClose: () => void;
+  onDelete: () => void;
 }
 
 export default function SelectModal({
   nbr,
   isOpen,
   onClose,
+  onDelete,
 }: SelectModalProps) {
   const body = document.querySelector("body")!;
 
@@ -29,7 +31,7 @@ export default function SelectModal({
           </p>
           <div className="flex gap-2">
             <RawButton icon={faRemove} onClick={onClose} />
-            <RawButton icon={faTrashAlt} />
+            <RawButton icon={faTrashAlt} onClick={onDelete} />
           </div>
         </div>
       </div>
