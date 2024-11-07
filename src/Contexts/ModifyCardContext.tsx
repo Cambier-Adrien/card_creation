@@ -5,19 +5,31 @@ interface ModifyCardContextProps {
   setModifyCard: (modifyCard: boolean) => void;
 }
 
-interface ModifyCardProviderProps {
+interface ErrorModifyContextProps {
+  errorModify: boolean;
+  setErrorModify: (errorModify: boolean) => void;
+}
+
+interface ContextProviderProps {
   children: ReactNode;
 }
 
 export const ModifyCardContext = createContext<ModifyCardContextProps>(
   undefined!
 );
-export const ModifyCardProvider = ({ children }: ModifyCardProviderProps) => {
+export const ErrorModifyContext = createContext<ErrorModifyContextProps>(
+  undefined!
+);
+
+export const ModifyProvider = ({ children }: ContextProviderProps) => {
   const [modifyCard, setModifyCard] = useState(false);
+  const [errorModify, setErrorModify] = useState(false);
 
   return (
     <ModifyCardContext.Provider value={{ modifyCard, setModifyCard }}>
-      {children}
+      <ErrorModifyContext.Provider value={{ errorModify, setErrorModify }}>
+        {children}
+      </ErrorModifyContext.Provider>
     </ModifyCardContext.Provider>
   );
 };

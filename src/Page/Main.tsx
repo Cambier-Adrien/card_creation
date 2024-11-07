@@ -8,9 +8,15 @@ import ModifyModal from "../Modals/ModifyModal";
 import ModifyCardModal from "../Modals/ModifyCardModal";
 import { ReloadContext } from "../Contexts/ReloadContext";
 import AlertModal from "../Modals/AlertModal";
-import { AddCardContext } from "../Contexts/AddCardContext";
+import {
+  AddCardContext,
+  ErrorAddCardContext,
+} from "../Contexts/AddCardContext";
 import { RemoveCardContext } from "../Contexts/RemoveCardContext";
-import { ModifyCardContext } from "../Contexts/ModifyCardContext";
+import {
+  ModifyCardContext,
+  ErrorModifyContext,
+} from "../Contexts/ModifyCardContext";
 
 export default function Main() {
   const [cards, setCards] = useState([]);
@@ -19,8 +25,10 @@ export default function Main() {
   const [selected, setSelected] = useState<string[]>([]);
   const [cardToModify, setCardToModify] = useState<any>();
   const { addCard, setAddCard } = useContext(AddCardContext);
+  const { errorAddCard, setErrorAddCard } = useContext(ErrorAddCardContext);
   const { removeCard, setRemoveCard } = useContext(RemoveCardContext);
   const { modifyCard, setModifyCard } = useContext(ModifyCardContext);
+  const { errorModify, setErrorModify } = useContext(ErrorModifyContext);
 
   useEffect(() => {
     fetch("http://192.168.1.118:8080/cards", {
@@ -173,6 +181,16 @@ export default function Main() {
       <AlertModal
         value="Carte modifiée avec succès !"
         isActive={modifyCard || false}
+      />
+      <AlertModal
+        value="Erreur lors de la modification de la carte"
+        isActive={errorModify || false}
+        isError={true}
+      />
+      <AlertModal
+        value="Erreur lors de la création de la carte"
+        isActive={errorAddCard || false}
+        isError={true}
       />
     </>
   );

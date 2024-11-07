@@ -4,7 +4,10 @@ import { HeavyButton, LightButton } from "../Components/Buttons";
 import { SlateInput, SlateTextArea, Counter } from "../Components/Inputs";
 import { useState, useContext } from "react";
 import { ReloadContext } from "../Contexts/ReloadContext";
-import { AddCardContext } from "../Contexts/AddCardContext";
+import {
+  AddCardContext,
+  ErrorAddCardContext,
+} from "../Contexts/AddCardContext";
 
 interface CreateCardModalProps {
   onClose: () => void;
@@ -24,6 +27,7 @@ export default function CreateCardModal({
   const [description, setDescription] = useState("");
   const isFormValid = title && imageUrl && description;
   const { addCard, setAddCard } = useContext(AddCardContext);
+  const { errorAddCard, setErrorAddCard } = useContext(ErrorAddCardContext);
 
   const handleAtkAdd = () => {
     setAtk(atk < 99 ? atk + 1 : 99);
@@ -82,6 +86,10 @@ export default function CreateCardModal({
         }, 5000);
       } else {
         console.error("Erreur lors de la création de la carte");
+        setErrorAddCard(true);
+        setTimeout(() => {
+          setErrorAddCard(false);
+        }, 5000);
       }
     } catch (error) {
       console.error("Erreur réseau ou serveur", error);
@@ -92,10 +100,10 @@ export default function CreateCardModal({
     <div
       className={`${
         isOpen ? "flex" : "hidden"
-      } fixed inset-0 items-center justify-center z-50`}
+      } fixed inset-0 items-center justify-center z-10`}
     >
       <ModalBackground isOpen={isOpen} onClick={handleClose} />
-      <div className="w-[30rem] p-8 rounded-xl bg-slate-950 border-2 border-violet-600 shadow-2xl shadow-violet-600/50 z-50 flex flex-col gap-6 items-center max-h-full overflow-y-scroll">
+      <div className="w-[30rem] p-8 rounded-xl bg-slate-950 border-2 border-violet-600 shadow-2xl shadow-violet-600/50 z-20 flex flex-col gap-6 items-center max-h-full overflow-y-scroll">
         <h1 className="text-center text-white font-['Inter'] text-4xl font-semibold">
           Créez votre <span className="text-indigo-600"> carte</span>
         </h1>

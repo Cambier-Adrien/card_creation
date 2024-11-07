@@ -4,7 +4,10 @@ import { HeavyButton, LightButton } from "../Components/Buttons";
 import { SlateInput, SlateTextArea, Counter } from "../Components/Inputs";
 import { useEffect, useState, useContext } from "react";
 import { ReloadContext } from "../Contexts/ReloadContext";
-import { ModifyCardContext } from "../Contexts/ModifyCardContext";
+import {
+  ModifyCardContext,
+  ErrorModifyContext,
+} from "../Contexts/ModifyCardContext";
 
 interface ModifyCardModalProps {
   onClose: () => void;
@@ -27,6 +30,7 @@ export default function ModifyCardModal({
   const isFormValid = title && imageUrl && description;
   const [cardId, setCardId] = useState<string | null>(null);
   const { modifyCard, setModifyCard } = useContext(ModifyCardContext);
+  const { errorModify, setErrorModify } = useContext(ErrorModifyContext);
 
   useEffect(() => {
     if (isOpen && data) {
@@ -99,6 +103,10 @@ export default function ModifyCardModal({
         }, 5000);
       } else {
         console.error("Erreur lors de la création de la carte");
+        setErrorModify(true);
+        setTimeout(() => {
+          setErrorModify(false);
+        }, 5000);
       }
     } catch (error) {
       console.error("Erreur réseau ou serveur", error);

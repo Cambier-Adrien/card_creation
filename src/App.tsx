@@ -2,21 +2,21 @@ import "./Style/index.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from "./Page/Main";
 import { ReloadProvider } from "./Contexts/ReloadContext";
-import { AddCardProvider } from "./Contexts/AddCardContext";
+import { AddProvider } from "./Contexts/AddCardContext";
 import { RemoveCardProvider } from "./Contexts/RemoveCardContext";
-import { ModifyCardProvider } from "./Contexts/ModifyCardContext";
+import { ModifyProvider } from "./Contexts/ModifyCardContext";
 
 function App() {
   return (
     <Router>
       <ReloadProvider>
-        <AddCardProvider>
+        <AddProvider>
           <RemoveCardProvider>
-            <ModifyCardProvider>
+            <ModifyProvider>
               <Main />
-            </ModifyCardProvider>
+            </ModifyProvider>
           </RemoveCardProvider>
-        </AddCardProvider>
+        </AddProvider>
       </ReloadProvider>
     </Router>
   );
