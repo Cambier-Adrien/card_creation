@@ -31,7 +31,7 @@ export default function Main() {
   const { errorModify, setErrorModify } = useContext(ErrorModifyContext);
 
   useEffect(() => {
-    fetch("http://192.168.1.118:8080/cards", {
+    fetch("http://localhost:8080/cards", {
       method: "GET",
       headers: {
         Accept: "application/json",

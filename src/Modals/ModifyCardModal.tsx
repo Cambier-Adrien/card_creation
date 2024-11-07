@@ -81,16 +81,13 @@ export default function ModifyCardModal({
     };
 
     try {
-      const response = await fetch(
-        `http://192.168.1.118:8080/cards/${cardId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cardData),
-        }
-      );
+      const response = await fetch(`http://localhost:8080/cards/${cardId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cardData),
+      });
 
       if (response.ok) {
         resetForm();

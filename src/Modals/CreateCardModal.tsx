@@ -67,7 +67,7 @@ export default function CreateCardModal({
     };
 
     try {
-      const response = await fetch("http://192.168.1.118:8080/cards", {
+      const response = await fetch("http://localhost:8080/cards", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
