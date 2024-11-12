@@ -34,8 +34,8 @@ export default function ModifyCardModal({
 
   useEffect(() => {
     if (isOpen && data) {
-      setAtk(data.atk);
-      setDef(data.def);
+      setAtk(data.attack);
+      setDef(data.defense);
       setTitle(data.title);
       setImageUrl(data.image);
       setDescription(data.description);
