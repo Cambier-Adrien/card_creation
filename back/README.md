@@ -1,46 +1,93 @@
-# Getting Started with Create React App
+# Java Spring API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ce projet est une API créée avec Java et Spring Boot. Il utilise Maven pour la gestion des dépendances et est conçu pour être facilement déployé sur des environnements Windows et macOS.
 
-## Available Scripts
+## Prérequis
 
-In the project directory, you can run:
+- **Java** : version 17 ou plus récente
+- **Maven** : version 3.6.0 ou plus récente (installé via Homebrew sur macOS)
+- **Git** (facultatif, pour cloner le projet)
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. **Clone le projet depuis le dépôt Git** (facultatif si le projet est déjà téléchargé) :
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+   ```bash
+   git clone <URL_DU_DEPOT>
+   cd server
+   ```
 
-### `npm test`
+2. **Installe les dépendances Maven :**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Maven gère automatiquement les dépendances listées dans le fichier pom.xml. Pour les télécharger et préparer le projet, exécute la commande suivante :
 
-### `npm run build`
+```bash
+mvn clean
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Compile le projet et télécharge les dépendances :**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Ensuite, compile le projet pour télécharger toutes les dépendances manquantes :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+mvn compile
+```
 
-### `npm run eject`
+## Lancement du Projet
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Pour lancer l'application Spring Boot :
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Lance l’application avec Maven :**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+mvn spring-boot:run
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Cela démarrera le serveur sur http://localhost:8080 (par défaut).
 
-## Learn More
+2. **Vérifie que l’application est lancée :**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Ouvre un navigateur et va à l'adresse suivante :
+  http://localhost:8080
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Si l'application est lancée, tu devrais voir une réponse, même si c'est une erreur 404 si aucune page d'accueil n'est configurée.
+
+- Vérification avec une route spécifique (si configurée) :
+  http://localhost:8080/actuator/health
+
+Une réponse {"status":"UP"} indique que l'application est bien en ligne.
+
+3. Lancer les tests (facultatif) :
+
+Pour lancer les tests inclus dans le projet, exécute la commande suivante :
+
+```bash
+mvn test
+```
+
+## Utilisation
+
+Après le lancement, tu peux interagir avec l'API via des outils comme Postman ou curl. Consulte la documentation de l'API (si disponible) pour voir les routes et les paramètres acceptés.
+
+## Dépannage
+
+### Problèmes courants
+
+Erreur de compilation : Assure-toi que Maven et Java sont installés correctement et que tu as les permissions nécessaires sur le dossier du projet.
+
+Port déjà utilisé : Si le port 8080 est déjà pris, tu peux modifier le port dans application.properties :
+server.port=8081
+
+## Structure du projet
+
+- src/main/java : Code source principal de l'application
+- src/test/java : Tests unitaires de l'application
+- src/main/resources/application.properties : Configuration de l’application
+
+## Contribution
+
+Si tu souhaites contribuer, merci de faire une pull request ou de soumettre une issue pour discuter des modifications.
+
+## Licence
+
+Ce projet est sous licence MIT. Veuillez consulter le fichier LICENSE pour plus de détails.
